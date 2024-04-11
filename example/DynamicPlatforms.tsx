@@ -6,6 +6,7 @@ import {
   RapierRigidBody,
   RigidBody,
 } from "@react-three/rapier";
+import React from "react";
 import { useRef, useMemo } from "react";
 import * as THREE from "three";
 
@@ -16,7 +17,7 @@ export default function DynamicPlatforms() {
   const rotationDrumRef = useRef<RapierRigidBody>();
 
   // Initializ animation settings
-  let time = null;
+  let time: number | null = null;
   const xRotationAxies = new THREE.Vector3(1, 0, 0);
   const yRotationAxies = new THREE.Vector3(0, 1, 0);
 
@@ -27,7 +28,7 @@ export default function DynamicPlatforms() {
 
     // Move platform
     sideMovePlatformRef.current?.setNextKinematicTranslation({
-      x: 5 * Math.sin(time / 2) - 12,
+      x: 2* Math.sin(time *2) - 12,
       y: -0.5,
       z: -10,
     });
@@ -122,31 +123,6 @@ export default function DynamicPlatforms() {
           <boxGeometry args={[5, 0.2, 5]} />
           <meshStandardMaterial color={"moccasin"} />
         </mesh>
-      </RigidBody>
-
-      {/* Rotating drum */}
-      <Text
-        scale={0.5}
-        color="black"
-        maxWidth={10}
-        textAlign="center"
-        position={[-15, 2.5, -15]}
-      >
-        Kinematic Rotating Drum
-      </Text>
-      <RigidBody
-        colliders={false}
-        type="kinematicPosition"
-        position={[-15, -1, -15]}
-        ref={rotationDrumRef}
-      >
-        <group rotation={[0, 0, Math.PI / 2]}>
-          <CylinderCollider args={[5, 1]} />
-          <mesh receiveShadow>
-            <cylinderGeometry args={[1, 1, 10]} />
-            <meshStandardMaterial color={"moccasin"} />
-          </mesh>
-        </group>
       </RigidBody>
     </>
   );

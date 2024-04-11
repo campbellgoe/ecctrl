@@ -14,6 +14,7 @@ import ShotCube from "./ShotCube";
 import { useControls } from "leva";
 import CharacterModel from "./CharacterModel";
 import React, { useEffect, useState } from "react";
+import { CharacterBase } from "../Character-base";
 
 export default function Experience() {
   /**
@@ -81,23 +82,17 @@ export default function Experience() {
             autoBalanceSpringOnY={0.7}
             autoBalanceDampingOnY={0.05}
             disableFollowCam={disableFollowCam}
+            floatHeight={0}
           >
             {/* Replace your model here */}
             <CharacterModel />
+            {/* <CharacterBase scale={[0.1,0.1,0.1]} /> */}
+            
           </Ecctrl>
         </KeyboardControls>
 
         {/* Rough plan */}
         <RoughPlane />
-
-        {/* Slopes and stairs */}
-        <Slopes />
-
-        {/* Small steps */}
-        <Steps />
-
-        {/* Rigid body objects */}
-        <RigidObjects />
 
         {/* Floating platform */}
         <FloatingPlatform />
@@ -108,8 +103,7 @@ export default function Experience() {
         {/* Floor */}
         <Floor />
 
-        {/* Shoting cubes */}
-        <ShotCube />
+
       </Physics >
     </>
   );

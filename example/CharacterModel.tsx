@@ -37,9 +37,9 @@ export default function CharacterModel(props: CharacterModelProps) {
   const leftHandPos = useMemo(() => new THREE.Vector3(), []);
   const bodyPos = useMemo(() => new THREE.Vector3(), []);
   const bodyRot = useMemo(() => new THREE.Quaternion(), []);
-  let rightHand: THREE.Object3D = null;
-  let leftHand: THREE.Object3D = null;
-  let mugModel: THREE.Object3D = null;
+  let rightHand: THREE.Object3D | null = null;
+  let leftHand: THREE.Object3D | null = null;
+  let mugModel: THREE.Object3D | null = null;
 
   /**
    * Prepare punch effect sprite
@@ -115,7 +115,7 @@ export default function CharacterModel(props: CharacterModelProps) {
   }, []);
 
   useEffect(() => {
-    group.current.traverse((obj) => {
+    group.current?.traverse((obj) => {
       // Prepare both hands bone object
       if (obj instanceof THREE.Bone) {
         if (obj.name === "handSlotRight") rightHand = obj;
@@ -133,8 +133,8 @@ export default function CharacterModel(props: CharacterModelProps) {
     if (curAnimation === animationSet.action4) {
       if (rightHand) {
         rightHand.getWorldPosition(rightHandPos);
-        group.current.getWorldPosition(bodyPos);
-        group.current.getWorldQuaternion(bodyRot);
+        group.current?.getWorldPosition(bodyPos);
+        group.current?.getWorldQuaternion(bodyRot);
       }
 
       // Apply hands position to hand colliders
